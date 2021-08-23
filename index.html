@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Message Squencer</title>
+</head>
+
+<body>
+    <div class="flex-container">
+        <div class="flex-child">
+
+            <form action="" name="message-form" id="message-form">
+                <p>Enter your message</p>
+                <textarea name="" id="message-input-box" cols="30" rows="5" required
+                    style="margin-left: 20px;"></textarea>
+                <!-- <input type="text" style="margin-left: 20px;"> -->
+                <p>Custom display time?</p> <input type="checkbox" name="" id="display-check"> <input type="text"
+                    id='display-time-box' disabled required placeholder="Time, in seconds">
+                <p>Custom delete time?</p> <input type="checkbox" name="" id="delete-check"> <input id='delete-time-box'
+                    disabled required type="text">
+                <br>
+                <input type="submit" value="Submit" id='submit-button' style="margin-top: 20px;">
+            </form>
+        </div>
+
+        <div class="flex-child ">
+            <div class="message-box">
+                <button id='delete-btn'><i class="fas fa-times"></i></button>
+                <h4 id="message-display-box">No messages to show</h4>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="message-display.js"></script>
+    <script src="message-submission.js"></script>
+    <script src="buttonmanager.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
