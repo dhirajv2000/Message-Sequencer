@@ -27,11 +27,42 @@ p{
 
 
 .message-box{
-    background-color: white ;
+    background-color: transparent;
     height: 300px;
     width: 500px;
 }
+
+#message-display-box{
+    position: relative;
+    top: 20%;
+}
+
 button{
     margin-left: 90%;
     display: block;
+}
+
+#display-check{
+    vertical-align: bottom;
+    margin-top: 5px;
+}
+
+table{
+    border-spacing: 10px;
+    margin: auto;
+    padding-bottom: 0px;
+    width: 100%;
+
+}
+
+tr{
+    width: 100%;
+}
+
+td{
+    width: 100%;
+}
+
+#delete-btn{
+    visibility: hidden;
 }

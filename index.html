@@ -18,15 +18,38 @@
 
             <form action="" name="message-form" id="message-form">
                 <p>Enter your message</p>
-                <textarea name="" id="message-input-box" cols="30" rows="5" required
+                <textarea name="" id="message-input-box" cols="40" rows="5" required
                     style="margin-left: 20px;"></textarea>
                 <!-- <input type="text" style="margin-left: 20px;"> -->
-                <p>Custom display time?</p> <input type="checkbox" name="" id="display-check"> <input type="text"
-                    id='display-time-box' disabled required placeholder="Time, in seconds">
-                <p>Custom delete time?</p> <input type="checkbox" name="" id="delete-check"> <input id='delete-time-box'
-                    disabled required type="text">
-                <br>
-                <input type="submit" value="Submit" id='submit-button' style="margin-top: 20px;">
+                <div id='theme-radio-buttons'>
+                    <p style="margin-bottom: 10px;">Choose a theme</p>
+                    <input type="radio" name="themeList" id="default-theme"  value="default" />
+                    <label for="default">Default</label>
+    
+                    <input type="radio" name="themeList" id="sucess-theme"  value="sucess" />
+                    <label for="sucess">Sucess</label>
+    
+                    <input type="radio" name="themeList" id="warning-theme" required value="warning" />
+                    <label for="warning">Warning</label>
+    
+                    <input type="radio" name="themeList" id="failure-theme" value="failure" />
+                    <label for="failure">Failure</label>
+                </div>
+                <p style="margin-bottom: 10px;">Exit box <input style="margin-top: 10px; margin-bottom: 0px;" type="checkbox" name="" id="exit-check"></p>
+
+                <table>
+                    <tr>
+                        <td>
+                            <p>Custom display time<input type="checkbox" name="" id="display-check"></p> <input
+                                type="text" id='display-time-box' style="visibility: hidden";  placeholder="Time, in seconds">
+                        </td>
+                        <td>
+                            <p>Custom delete time<input type="checkbox"  name="" id="delete-check"></p> <input
+                                id='delete-time-box' style="visibility: hidden";  type="text" placeholder="Time, in seconds">
+                        </td>
+                    </tr>
+                </table>
+                <input type="button" value="Submit" id='submit-button' >
             </form>
         </div>
 

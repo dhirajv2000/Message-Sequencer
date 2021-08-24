@@ -1,24 +1,28 @@
-class CheckButton{
+class CheckButton {
     constructor(properties) {
         this.textBox = document.getElementById(properties.textBoxID);
         this.checkBox = document.getElementById(properties.buttonID);
         this.intialiseEventListeners();
     }
 
-    intialiseEventListeners(){
-        this.checkBox.addEventListener('click', ()=>{
-            if(this.checkBox.checked){
-                this.textBox.disabled = false;
+    intialiseEventListeners() {
+        this.checkBox.addEventListener('click', () => {
+            if (this.checkBox.checked) {
+                this.textBox.style.visibility = "visible";
+                this.textBox.requried = true;
+                // this.textBox.disabled = false;
             } else {
-                this.textBox.disabled = true;
+                this.textBox.style.visibility = "hidden";
+                this.textBox.requried = false;
+                // this.textBox.disabled = true;
                 this.textBox.value = "";
             }
         });
     }
 }
 
-class SubmitButton{
-    constructor(properties){
+class SubmitButton {
+    constructor(properties) {
         this.submitButton = document.getElementById(properties.buttonID);
         this.form = document.getElementById('message-form');
         this.messageInputBox = document.getElementById('message-input-box')
@@ -26,47 +30,62 @@ class SubmitButton{
         this.displayTimeBox = document.getElementById('display-time-box');
         this.deleteCheckBox = document.getElementById('delete-check');
         this.deleteTimeBox = document.getElementById('delete-time-box');
+        this.exitCheckBox = document.getElementById('exit-check');
+        this.radioButtons = document.getElementById('theme-radio-buttons').getElementsByTagName('input');
         this.intialiseEventListeners();
     }
 
-    intialiseEventListeners(){
-        this.submitButton.addEventListener('click', (e)=>{
+    intialiseEventListeners() {
+        this.submitButton.addEventListener('click', (e) => {
             e.preventDefault();
             this.form.checkValidity();
             this.form.reportValidity();
+            if (!this.form.checkValidity()) {
+                return;
+            }
             let messageProperties = {};
             let displayTime = this.displayTimeBox.value;
             let deleteTime = this.deleteTimeBox.value;
             messageProperties.messageText = this.messageInputBox.value;
-            if(this.displayCheckBox){
+            if(this.exitCheckBox.checked){
+                messageProperties.hasExitButton = true
+            } else if(!this.exitCheckBox.checked && !this.deleteTimeBox.checked) {
+                alert('Set a delete duration if you dont want a exit box');
+                return;
+            }
+            if (this.displayCheckBox) {
                 messageProperties.displayTime = displayTime;
             } else {
                 messageProperties.displayTime = 'now';
             }
-            if(this.deleteCheckBox && this.deleteTimeBox.value){
+            if (this.deleteCheckBox && this.deleteTimeBox.value) {
                 messageProperties.deleteTime = deleteTime;
-            } else{
+            } else {
                 messageProperties.deleteTime = 'onClick';
             }
-            if(parseInt(deleteTime) <= parseInt(displayTime)){
-                alert('Invalid delete time');
-                return;
+
+            for (let i = 0; i < this.radioButtons.length; i++) {
+                if(this.radioButtons[i].type === 'radio' && this.radioButtons[i].checked) {
+                    messageProperties.theme = this.radioButtons[i].value;
+                }
             }
             this.form.reset();
-            this.displayTimeBox.disabled = true;
-            this.deleteTimeBox.disabled = true;
+            this.displayTimeBox.style.visibility = "hidden";
+            this.displayTimeBox.requried = false;
+            this.deleteTimeBox.style.visibility = "hidden";
+            this.deleteTimeBox.required = false;
             let messageObj = new Message(messageProperties);
         });
     }
 }
 
-class DeleteButton{
-    constructor(properties){
+class DeleteButton {
+    constructor(properties) {
         this.deleteButton = document.getElementById('delete-btn');
         this.intialiseEventListeners()
     }
-    intialiseEventListeners(){
-        this.deleteButton.addEventListener('click',()=>{
+    intialiseEventListeners() {
+        this.deleteButton.addEventListener('click', () => {
             priorityStack.pop();
         })
     }
@@ -81,7 +100,7 @@ class ButtonFactory {
                 return new SubmitButton(properties)
             case 'delete-button':
                 return new DeleteButton(properties)
-            
+
         }
     }
 }
@@ -107,10 +126,10 @@ const buttons = [{
 ];
 
 
-function createButtons(){
+function createButtons() {
     let buttonObjects = [];
     let buttonFactory = new ButtonFactory();
     for (let i = 0; i < buttons.length; i++) {
         buttonObjects.push(buttonFactory.createButtonClass(buttons[i]));
-    }    
+    }
 }
